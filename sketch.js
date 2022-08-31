@@ -21,7 +21,7 @@ var count;
 var colliders = [];
 //array and temp single for ray cast stuff
 var rayCount;
-let rayc;
+// let rayc;
 let particle;
 var rayOutput;
 
@@ -31,6 +31,15 @@ var canvasMouse;
 var attractor1;
 //image array
 var imgs = [];
+
+
+
+
+
+
+
+
+
 //main onLoad() function
 function setup() {
   //designates the canvas that is drawn to
@@ -79,9 +88,9 @@ function setup() {
   rayOutput.innerHTML = rayCount.value;
   rayCount.input(sliderCount);
   console.log(rayCount, rayOutput);
-  rayc = new Ray(windowWidth/2, windowHeight/2, 1.5);
-  //particle = new Particle(rayCount.value);
-  particle = new Particle(180);
+  // rayc = new Ray(windowWidth/2, windowHeight/2, 1.5);
+  particle = new Particle(rayCount.elt.value);
+  //particle = new Particle(180);
 
 
   //attractor stuff
@@ -219,7 +228,9 @@ function draw() {
 
 
 function sliderCount() {
-  rayOutput.elt.outerText = rayCount.value;
+  rayOutput.html(rayCount.elt.value); //= rayCount.elt.value;
+  // particle.rays = [];
+  particle.new(rayCount.elt.value);
   //console.log(rayOutput, rayCount);
 }
 function cyclePinballs() {

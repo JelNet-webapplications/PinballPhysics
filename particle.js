@@ -1,6 +1,8 @@
 class Particle {
     constructor(c) {
-        this.pos = createVector(windowWidth/2, 0)
+        if (!this.pos) {
+            this.pos = createVector(windowWidth/2, 0)
+        }
         this.rays = [];
         var space = 360/c;
         for (let a = 0; a < 360; a+= space) {
@@ -9,6 +11,13 @@ class Particle {
         }
     }
 
+    new(c) {
+        this.rays = [];
+        var space = 360/c;
+        for (let a = 0; a < 360; a+= space) {
+            this.rays.push(new Ray(this.pos.x, this.pos.y, radians(a)));
+        }
+    }
 
     update(x, y) {
         this.pos.set(x, y);
