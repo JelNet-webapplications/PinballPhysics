@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pinball Physics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/matter-attractors@0.1.6/build/matter-attractors.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="sketch.js" type="text/javascript"></script>
+    <script src="pinballs.js"></script>
+    <script src="collider.js"></script>
+    <script src="ray.js"></script>
+    <script src="particle.js"></script>
+    <script src="attractor.js"></script>
+    
+
+  </head>
+  <body>
+    
+    <p>
+        € Euros: <input type ="number" id ="euros" min= "0" max="5000" value="1">
+        <button id="submitEuros">submit</button>
+        <br> Enable magnet:<input type ="checkbox" id ="magnet" name ="magnet" value ="magnet">
+        Magnet Strength: <input type ="number" id ="magStrength" min= "0" max="10" value="1">
+        <button id="submitMagnet">submit</button>
+        <br> Enable gravity:<input type ="checkbox" id ="gravity" name ="gravity" value ="gravity" checked>
+        Gravity: <input type ="number" id ="gravity" min= "0" max="10" value="1">
+        <button id="submitGravity">submit</button>
+        <br> Light Rays: <span id="rayOut">180</span> <input type="range" min="0" max="720" value="180" class="slider" id="rays">
+
+    </p>
+  </body>
+</html>
