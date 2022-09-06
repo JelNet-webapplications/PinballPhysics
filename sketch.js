@@ -260,7 +260,7 @@ function draw() {
   if (gravity.elt.checked) {
        engine.gravity.scale = gravityValue*0.001;
     } else if (!gravity.elt.checked) {
-       engine.gravity.scale = 0.001;
+       engine.gravity.scale = 0;
     }
 }
 
