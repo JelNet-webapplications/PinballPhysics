@@ -39,9 +39,17 @@ function Collider(x, y, w, h, a) {
       pop();
     };
     //basic function to move the colliders if needed, e.g rescaling the window
-    this.move = function (x2, y2) {
+    this.move = function (x2, y2, w2, h2) {
       var pos2 = Matter.Vector.create(x2, y2);
       Body.setPosition(this.body, pos2);
+
+      // var currentWidth = this.body.bounds.max.x - this.body.bounds.min.x;
+      // var currentHeight = this.body.bounds.max.y - this.body.bounds.min.y;
+      // var widthScale = w2/currentWidth;
+      // var heightScale = h2/currentHeight;
+      // //console.log(this.body);
+      // Body.scale(this.body, widthScale, heightScale);
+      
     };
   }
   

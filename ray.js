@@ -27,7 +27,7 @@ class Ray {
         var points = [];
 
         var start = this.pos;
-        var end = createVector(this.pos.x + (this.dir.x*5000), this.pos.y + (this.dir.y*5000));
+        var end = createVector(this.pos.x + (this.dir.x*windowWidth*2), this.pos.y + (this.dir.y*windowWidth*2));
 
         //console.log(start, end);
 
@@ -46,6 +46,7 @@ class Ray {
 
         var newCast = []
         newCast = newCast.concat(newBalls, newWalls);
+        //newCast = newCast.concat(newBalls)
         //console.log(newCast);
         points = raycast(newCast, start, end)
         //console.log(points);

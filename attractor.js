@@ -11,7 +11,14 @@ function Attractor(x, y) {
     }
 
 
-    this.add = function() {
+    this.add = function(strength) {
+        if (!(strength == null)) {
+            str = strength * 1e-6;
+            //console.log(str);
+        } else {
+            str = 1e-6;
+            //console.log(strength);
+        }
         if (this.magnet == 0) {
             //atractor stuff
             var Aoptions =     {
@@ -22,8 +29,8 @@ function Attractor(x, y) {
                 attractors: [
                     function(bodyA, bodyB) {
                     return {
-                        x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-                        y: (bodyA.position.y - bodyB.position.y) * 1e-6,
+                        x: (bodyA.position.x - bodyB.position.x) * str,
+                        y: (bodyA.position.y - bodyB.position.y) * str
                     };
                     }
                 ]

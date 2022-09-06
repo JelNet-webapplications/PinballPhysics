@@ -32,7 +32,12 @@ var attractor1;
 //image array
 var imgs = [];
 
-
+var magnet;
+var magnetStr;
+var magnetStrength;
+var gravity;
+var gravityVal;
+var gravityValue;
 
 
 
@@ -43,16 +48,19 @@ var imgs = [];
 //main onLoad() function
 function setup() {
   //designates the canvas that is drawn to
-  var canvas = createCanvas(windowWidth, windowHeight - 103);
+  var canvas = createCanvas(windowWidth, windowHeight - 123);
   //creates the engine
   engine = Engine.create();
 
   //pinballs.push(new Pinball(200, 200, 25));
   //adds the colliders to the walls
-
-  colliders.push(new Collider(windowWidth / 2, windowHeight - 103, 5000, 40, 0));
-  colliders.push(new Collider(0, windowHeight / 2, 5000, 40, 90));
-  colliders.push(new Collider(windowWidth, windowHeight / 2, 5000, 40, 90));
+    //base
+  colliders.push(new Collider(0, windowHeight - 123, 5000, 40, 0));
+    //left
+  colliders.push(new Collider(0, windowHeight, 5000, 40, 90));
+    //right
+  colliders.push(new Collider(windowWidth, windowHeight, 5000, 40, 90));
+    //top
   colliders.push(new Collider(windowWidth, -windowHeight*2, 5000, 40, 0));
 
   //adds mouse constraints so you can pick up pinballs
@@ -74,8 +82,8 @@ function setup() {
   imgs.push(loadImage("pinball-textures/yellow-32x.png"));
 
   //loads the button into memory to know when its clicked
-  var button = select("#submitEuros");
-  button.mousePressed(UpdatePinballs);
+  var EurosButton = select("#submitEuros");
+  EurosButton.mousePressed(UpdatePinballs);
   //loads the count into memory
   euros = select("#euros");
 
@@ -97,7 +105,14 @@ function setup() {
   attractor1 = new Attractor(windowWidth/2, windowHeight/2);
 
   magnet = select("#magnet");
+  var magnetButton = select("#submitMagnet");
+  magnetButton.mousePressed(UpdateMagnet);
+  magnetStr = select('#magStrength');
   //console.log(magnet);
+  gravity = select('#gravity');
+  var gravityButton = select("#submitGravity");
+  gravityButton.mousePressed(UpdateGravity);
+  gravityVal = select('#gravityVal');
 
 
 
@@ -163,6 +178,25 @@ function UpdatePinballs() {
   }
 }
 
+function UpdateMagnet() {
+  magnetStrength = magnetStr.value();
+  //console.log(magnetStrength);
+
+  if (magnet.elt.checked) {
+      attractor1.remove();
+      attractor1.add(magnetStrength);
+      cyclePinballs();
+  }
+}
+
+function UpdateGravity() {
+  gravityValue = gravityVal.value();
+  console.log(gravityValue);
+  if (gravity.elt.checked) {
+    engine.gravity.scale = gravityValue*0.001;
+  }
+}
+
 //called each tick
 function draw() {
   //draws the background over everything so that there is no trailing effect, comment it out for fun
@@ -206,25 +240,30 @@ function draw() {
     }
 
     // smoothly move the attractor body towards the mouse
+    //console.log(magnetStrength.value());
     attractor1.move();
+
   });
 
   if (magnet.elt.checked) {
     if (attractor1.magnet == 0) {
-      attractor1.add();
+      attractor1.add(magnetStrength);
+      //console.log(magnetStrength);
       cyclePinballs();
     }
   } else if (!magnet.elt.checked) {
     if (attractor1.magnet == 1) {
       attractor1.remove();
-      
     }
   }
-
-
-  
-
+  // //gravity stuff
+  if (gravity.elt.checked) {
+       engine.gravity.scale = gravityValue*0.001;
+    } else if (!gravity.elt.checked) {
+       engine.gravity.scale = 0.001;
+    }
 }
+
 
 
 function sliderCount() {
@@ -247,11 +286,15 @@ function mousePressed() {
 }
 //called when the window is resized to make the canvas scale with it and move the colliders to the edge of the canvas
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 103);
-  colliders[0].move(windowWidth / 2, windowHeight - 103);
-  colliders[1].move(0, windowHeight / 2);
-  colliders[2].move(windowWidth, windowHeight / 2);
-  colliders[3].move(windowWidth / 2, -windowHeight*2);
+  resizeCanvas(windowWidth, windowHeight - 123);
+  //base
+  colliders[0].move(0, windowHeight - 123, windowWidth, 40);
+  //left
+  colliders[1].move(0, windowHeight, 40, windowHeight);
+  //right
+  colliders[2].move(windowWidth, windowHeight, 40, windowHeight);
+  //top
+  colliders[3].move(windowWidth / 2, -windowHeight*2, windowWidth, 40);
 }
 
 
