@@ -106,13 +106,17 @@ function setup() {
 
   magnet = select("#magnet");
   var magnetButton = select("#submitMagnet");
-  magnetButton.mousePressed(UpdateMagnet);
   magnetStr = select('#magStrength');
+  magnetButton.mousePressed(UpdateMagnet);
+  UpdateMagnet();
+  
   //console.log(magnet);
   gravity = select('#gravity');
   var gravityButton = select("#submitGravity");
-  gravityButton.mousePressed(UpdateGravity);
   gravityVal = select('#gravityVal');
+  gravityButton.mousePressed(UpdateGravity);
+  UpdateGravity();
+  
 
 
 
