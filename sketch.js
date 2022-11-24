@@ -209,6 +209,9 @@ function draw() {
   Engine.update(engine);
 
 
+  //Check if mouse is on canvas
+  mouseOver = ((mouseX > 0) && (mouseX < windowWidth) &&
+    (mouseY > 0) && (mouseY < windowHeight - 123))
 
   //ray trace stuff
   //particle.show();
