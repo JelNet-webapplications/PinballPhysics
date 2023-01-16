@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- misc -->
     <meta charset="utf-8" />
     <title>Pinball Physics</title>
+    <link rel="icon" type="image" href="imgs/icon-transparent.png">
+    <!-- styling -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- external code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/matter-attractors@0.1.6/build/matter-attractors.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="sketch.js" type="text/javascript"></script>
-    <script src="pinballs.js"></script>
-    <script src="collider.js"></script>
-    <script src="ray.js"></script>
-    <script src="particle.js"></script>
-    <script src="attractor.js"></script>
-    <script>
-      let mouseOver
-
-      document.addEventListener('contextmenu', event => {
-        if(!mouseOver) return
-        event.preventDefault()
-      });
-    </script>
-
+    <!-- internal code -->
+    <script src="script/sketch.js" type="text/javascript"></script>
+    <script src="script/pinballs.js"></script>
+    <script src="script/collider.js"></script>
+    <script src="script/ray.js"></script>
+    <script src="script/particle.js"></script>
+    <script src="script/attractor.js"></script>
+    <script src="script/main.js"></script>
   </head>
   <body>
     <p>
