@@ -135,27 +135,6 @@ function UpdatePinballs() {
   // the count it is currently at
   currentCount = pinballs.length;
 
-  // if(newCount - currentCount == prevAdded) {
-  //   newCount += prevAdded;
-  //   //update input to show what it actually is
-  //   //document.getElementById("euros").value = newCount/20;
-  // }
-  // else if(newCount == currentCount) {
-
-  //   prevAdded == currentCount;
-  //   newCount += currentCount;
-
-  //   //console.log(document.getElementById("euros").value)
-  //   //document.getElementById("euros").value = newCount/20;
-  //   currentCount = newCount;
-
-  // }
-  // else if(newCount != currentCount) {
-  //   prevAdded = newCount - currentCount;
-
-
-  // }
-
   if(newCount != wasAdded) {
     //this means that it is a new manually entered value
 

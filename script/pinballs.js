@@ -31,9 +31,17 @@ function Pinball(x, y, r, imag) {
       rotate(angle);
       //circle(0, 0, this.body.r*2);
       //draws the allocated pinball in the center of the circle and scales the image to that of the circle
-      if (!this.body.ray) {
-        tint(50, 50, 50);
+      if(document.getElementById("rays").value > 0) {
+        // console.log(select('#rays').value)
+        // console.log("rays is not equal to 0");
+        if (!this.body.ray) {
+          tint(50, 50, 50);
+        } else {
+          tint(255);
+        }
       } else {
+        // console.log(select('#rays').value)
+        // console.log("rays are eqaul to 0");
         tint(255);
       }
       image(this.c, -this.body.r, -this.body.r, 2 * this.body.r, 2 * this.body.r);
