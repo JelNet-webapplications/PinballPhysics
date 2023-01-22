@@ -16,7 +16,8 @@ var Engine = Matter.Engine,
 var engine;
 //creates the array to store the pinball bodies and a counter to store the ammount(not really necasary, just makes 2 lines neater)
 var pinballs = [];
-var count;
+var prevAdded = 0;
+var wasAdded = 0;
 //array for colliders
 var colliders = [];
 //array and temp single for ray cast stuff
@@ -129,33 +130,82 @@ function setup() {
 //main function for adding and removing pinballs
 function UpdatePinballs() {
   //new count that it needs to reach
-  NewCount = euros.value()*20;
+  newCount = euros.value()*20;
+
   // the count it is currently at
-  CurrentCount = pinballs.length;
+  currentCount = pinballs.length;
+
+  // if(newCount - currentCount == prevAdded) {
+  //   newCount += prevAdded;
+  //   //update input to show what it actually is
+  //   //document.getElementById("euros").value = newCount/20;
+  // }
+  // else if(newCount == currentCount) {
+
+  //   prevAdded == currentCount;
+  //   newCount += currentCount;
+
+  //   //console.log(document.getElementById("euros").value)
+  //   //document.getElementById("euros").value = newCount/20;
+  //   currentCount = newCount;
+
+  // }
+  // else if(newCount != currentCount) {
+  //   prevAdded = newCount - currentCount;
+
+
+  // }
+
+  if(newCount != wasAdded) {
+    //this means that it is a new manually entered value
+
+    prevAdded = newCount;
+    wasAdded = newCount;
+  }
+  else if(newCount == wasAdded) {
+    //this means that the box is the same meaning a possible second button click
+    
+    newCount += prevAdded;
+    wasAdded = newCount;
+    document.getElementById("euros").value = newCount/20;
+  }
+  else if(newCount - prevAdded == wasAdded) {
+    //this means that it has increased by prevAdded from what was added
+    newCount + prevAdded;
+    wasAdded = newCount;
+    document.getElementById("euros").value = newCount/20;
+  }
+
+
+
+
+
+
+
   //check to see if new count is too much
-  if (NewCount > 5000) {
-    NewCount = 5000;
+  if (newCount > 5000) {
+    newCount = 5000;
   }
   //code to see if it needs to add or remove pinballs
-  if (NewCount < CurrentCount) {
+  if (newCount < currentCount) {
     //old code for removing pinballs
-    //     for (var n = 0; n < CurrentCount - NewCount; n++) {
+    //     for (var n = 0; n < currentCount - newCount; n++) {
     //       console.log(n)
     //       pinballs[pinballs.length-1].remove()
     //       pinballs.pop()
 
-    //       console.log("before:", CurrentCount);
-    //       CurrentCount -= 1;
-    //       console.log("now: ", CurrentCount);
+    //       console.log("before:", currentCount);
+    //       currentCount -= 1;
+    //       console.log("now: ", currentCount);
     //     }
     //new code for removing pinballs
-    while (pinballs.length > NewCount) {
+    while (pinballs.length > newCount) {
       pinballs[pinballs.length - 1].remove();
       pinballs.pop();
     }
-  } else if (NewCount > CurrentCount) {
+  } else if (newCount > currentCount) {
     //code for adding pinballs
-    while (NewCount > CurrentCount) {
+    while (newCount > currentCount) {
       pinballs.push(
         new Pinball(
           random(0, windowWidth), //X
@@ -166,18 +216,18 @@ function UpdatePinballs() {
 
       );
       //just logging stuff
-      console.log("before:", CurrentCount);
-      CurrentCount++;
-      console.log("now: ", CurrentCount);
+      //console.log("before:", currentCount);
+      currentCount++;
+      //console.log("now: ", currentCount);
     }
     //do nothing so that it doesnt throw the error
-  } else if (NewCount == CurrentCount) {
+  } else if (newCount == currentCount) {
   } else {
     //just incase an impossible case arrises from emtpy values
     console.log(
       "error in counts. current count is",
-      str(CurrentCount) + ". New count is",
-      str(NewCount)
+      str(currentCount) + ". New count is",
+      str(newCount)
     );
   }
 }

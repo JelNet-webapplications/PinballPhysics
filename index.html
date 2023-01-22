@@ -24,13 +24,21 @@
     <p>
         € Euros: <input type ="number" id ="euros" min= "0" max="5000" value="1">
         <button id="submitEuros">submit</button>
-        <br> Enable magnet:<input type ="checkbox" id ="magnet" name ="magnet" value ="magnet">
-        Magnet Strength: <input type ="number" id ="magStrength" min= "0" max="10" value="1">
-        <button id="submitMagnet">submit</button>
-        <br> Enable gravity:<input type ="checkbox" id ="gravity" name ="gravity" value ="gravity" checked>
-        Gravity: <input type ="number" id ="gravityVal" min= "0" max="10" value="1">
-        <button id="submitGravity">submit</button>
-        <br> Light Rays: <span id="rayOut">180</span> <input type="range" min="0" max="720" value="180" class="slider" id="rays">
+
+        <br>
+        <button onclick="toggleAdvanced('advancedFeatures')">Advanced Features</button>
+
+          <p id="advancedFeatures" hidden="hidden"> 
+          Enable magnet:    <input type ="checkbox" id ="magnet" name ="magnet" value ="magnet">
+          Magnet Strength:  <input type ="number" id ="magStrength" min= "0" max="10" value="1">
+                            <button id="submitMagnet">submit</button>
+          <br> 
+          Enable gravity:   <input type ="checkbox" id ="gravity" name ="gravity" value ="gravity" checked>
+          Gravity:          <input type ="number" id ="gravityVal" min= "0" max="10" value="1">
+                            <button id="submitGravity">submit</button>
+          <br> 
+          Light Rays:       <span id="rayOut">180</span> <input type="range" min="0" max="720" value="180" class="slider" id="rays">
+          </p>
     </p>
     </body>
 </html>
