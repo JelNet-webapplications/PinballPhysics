@@ -16,7 +16,8 @@ var Engine = Matter.Engine,
 var engine;
 //creates the array to store the pinball bodies and a counter to store the ammount(not really necasary, just makes 2 lines neater)
 var pinballs = [];
-var count;
+var prevAdded = 0;
+var wasAdded = 0;
 //array for colliders
 var colliders = [];
 //array and temp single for ray cast stuff
@@ -47,15 +48,19 @@ var gravityValue;
 
 //main onLoad() function
 function setup() {
+  // console.log(document.getElementById("main"));
+  heightOffset = 108;
+
+
   //designates the canvas that is drawn to
-  var canvas = createCanvas(windowWidth, windowHeight - 123);
+  var canvas = createCanvas(windowWidth, windowHeight - heightOffset);
   //creates the engine
   engine = Engine.create();
 
   //pinballs.push(new Pinball(200, 200, 25));
   //adds the colliders to the walls
     //base
-  colliders.push(new Collider(0, windowHeight - 123, 5000, 40, 0));
+  colliders.push(new Collider(0, windowHeight - heightOffset, 5000, 40, 0));
     //left
   colliders.push(new Collider(0, windowHeight, 5000, 40, 90));
     //right
@@ -129,33 +134,61 @@ function setup() {
 //main function for adding and removing pinballs
 function UpdatePinballs() {
   //new count that it needs to reach
-  NewCount = euros.value()*20;
+  newCount = euros.value()*20;
+
   // the count it is currently at
-  CurrentCount = pinballs.length;
+  currentCount = pinballs.length;
+
+  if(newCount != wasAdded) {
+    //this means that it is a new manually entered value
+
+    prevAdded = newCount;
+    wasAdded = newCount;
+  }
+  else if(newCount == wasAdded) {
+    //this means that the box is the same meaning a possible second button click
+    
+    newCount += prevAdded;
+    wasAdded = newCount;
+    document.getElementById("euros").value = newCount/20;
+  }
+  else if(newCount - prevAdded == wasAdded) {
+    //this means that it has increased by prevAdded from what was added
+    newCount + prevAdded;
+    wasAdded = newCount;
+    document.getElementById("euros").value = newCount/20;
+  }
+
+
+
+
+
+
+
   //check to see if new count is too much
-  if (NewCount > 5000) {
-    NewCount = 5000;
+  if (newCount > 5000) {
+    newCount = 5000;
   }
   //code to see if it needs to add or remove pinballs
-  if (NewCount < CurrentCount) {
+  if (newCount < currentCount) {
     //old code for removing pinballs
-    //     for (var n = 0; n < CurrentCount - NewCount; n++) {
+    //     for (var n = 0; n < currentCount - newCount; n++) {
     //       console.log(n)
     //       pinballs[pinballs.length-1].remove()
     //       pinballs.pop()
 
-    //       console.log("before:", CurrentCount);
-    //       CurrentCount -= 1;
-    //       console.log("now: ", CurrentCount);
+    //       console.log("before:", currentCount);
+    //       currentCount -= 1;
+    //       console.log("now: ", currentCount);
     //     }
     //new code for removing pinballs
-    while (pinballs.length > NewCount) {
+    while (pinballs.length > newCount) {
       pinballs[pinballs.length - 1].remove();
       pinballs.pop();
     }
-  } else if (NewCount > CurrentCount) {
+  } else if (newCount > currentCount) {
     //code for adding pinballs
-    while (NewCount > CurrentCount) {
+    while (newCount > currentCount) {
       pinballs.push(
         new Pinball(
           random(0, windowWidth), //X
@@ -166,18 +199,18 @@ function UpdatePinballs() {
 
       );
       //just logging stuff
-      console.log("before:", CurrentCount);
-      CurrentCount++;
-      console.log("now: ", CurrentCount);
+      //console.log("before:", currentCount);
+      currentCount++;
+      //console.log("now: ", currentCount);
     }
     //do nothing so that it doesnt throw the error
-  } else if (NewCount == CurrentCount) {
+  } else if (newCount == currentCount) {
   } else {
     //just incase an impossible case arrises from emtpy values
     console.log(
       "error in counts. current count is",
-      str(CurrentCount) + ". New count is",
-      str(NewCount)
+      str(currentCount) + ". New count is",
+      str(newCount)
     );
   }
 }
@@ -211,7 +244,7 @@ function draw() {
 
   //Check if mouse is on canvas
   mouseOver = ((mouseX > 0) && (mouseX < windowWidth) &&
-    (mouseY > 0) && (mouseY < windowHeight - 123))
+    (mouseY > 0) && (mouseY < windowHeight - heightOffset))
 
   //ray trace stuff
   //particle.show();
@@ -291,11 +324,12 @@ function mousePressed() {
   }
   //console.log(mouseButton)
 }
+
 //called when the window is resized to make the canvas scale with it and move the colliders to the edge of the canvas
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 123);
+  resizeCanvas(windowWidth, windowHeight - heightOffset);
   //base
-  colliders[0].move(0, windowHeight - 123, windowWidth, 40);
+  colliders[0].move(0, windowHeight - heightOffset, windowWidth, 40);
   //left
   colliders[1].move(0, windowHeight, 40, windowHeight);
   //right
@@ -304,4 +338,22 @@ function windowResized() {
   colliders[3].move(windowWidth / 2, -windowHeight*2, windowWidth, 40);
 }
 
-
+function toggleAdvanced() {
+  if (arguments.length > 0){
+    for(var i=0; i < arguments.length; i++)
+      {
+          let element = document.getElementById(arguments[i]);
+          let hidden = element.getAttribute("hidden");
+         
+          if (hidden) {
+             element.removeAttribute("hidden");
+             heightOffset = 196;
+             windowResized()
+          } else {
+             element.setAttribute("hidden", "hidden");
+             heightOffset = 108;
+             windowResized()
+          }
+      }
+  } 
+}

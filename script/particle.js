@@ -12,10 +12,14 @@ class Particle {
     }
 
     new(c) {
-        this.rays = [];
-        var space = 360/c;
-        for (let a = 0; a < 360; a+= space) {
-            this.rays.push(new Ray(this.pos.x, this.pos.y, radians(a)));
+        if(c != 0) {
+            this.rays = [];
+            var space = 360/c;
+            for (let a = 0; a < 360; a+= space) {
+                this.rays.push(new Ray(this.pos.x, this.pos.y, radians(a)));
+            }
+        } else {
+            this.rays = [];
         }
     }
 
