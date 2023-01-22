@@ -48,15 +48,19 @@ var gravityValue;
 
 //main onLoad() function
 function setup() {
+  // console.log(document.getElementById("main"));
+  heightOffset = 108;
+
+
   //designates the canvas that is drawn to
-  var canvas = createCanvas(windowWidth, windowHeight - 123);
+  var canvas = createCanvas(windowWidth, windowHeight - heightOffset);
   //creates the engine
   engine = Engine.create();
 
   //pinballs.push(new Pinball(200, 200, 25));
   //adds the colliders to the walls
     //base
-  colliders.push(new Collider(0, windowHeight - 123, 5000, 40, 0));
+  colliders.push(new Collider(0, windowHeight - heightOffset, 5000, 40, 0));
     //left
   colliders.push(new Collider(0, windowHeight, 5000, 40, 90));
     //right
@@ -240,7 +244,7 @@ function draw() {
 
   //Check if mouse is on canvas
   mouseOver = ((mouseX > 0) && (mouseX < windowWidth) &&
-    (mouseY > 0) && (mouseY < windowHeight - 123))
+    (mouseY > 0) && (mouseY < windowHeight - heightOffset))
 
   //ray trace stuff
   //particle.show();
@@ -320,11 +324,12 @@ function mousePressed() {
   }
   //console.log(mouseButton)
 }
+
 //called when the window is resized to make the canvas scale with it and move the colliders to the edge of the canvas
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 123);
+  resizeCanvas(windowWidth, windowHeight - heightOffset);
   //base
-  colliders[0].move(0, windowHeight - 123, windowWidth, 40);
+  colliders[0].move(0, windowHeight - heightOffset, windowWidth, 40);
   //left
   colliders[1].move(0, windowHeight, 40, windowHeight);
   //right
@@ -333,4 +338,22 @@ function windowResized() {
   colliders[3].move(windowWidth / 2, -windowHeight*2, windowWidth, 40);
 }
 
-
+function toggleAdvanced() {
+  if (arguments.length > 0){
+    for(var i=0; i < arguments.length; i++)
+      {
+          let element = document.getElementById(arguments[i]);
+          let hidden = element.getAttribute("hidden");
+         
+          if (hidden) {
+             element.removeAttribute("hidden");
+             heightOffset = 196;
+             windowResized()
+          } else {
+             element.setAttribute("hidden", "hidden");
+             heightOffset = 108;
+             windowResized()
+          }
+      }
+  } 
+}

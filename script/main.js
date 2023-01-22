@@ -7,24 +7,9 @@
 // });
 
 // turn off contextmenu
-let mouseOver;
+//changed mouseOver to mousedOver as mouseOver is a p5 function and so the name is already used.
+let mousedOver;
 document.addEventListener('contextmenu', event => {
-    if(!mouseOver) return
+    if(!mousedOver) return
     event.preventDefault();
 });
-
-function toggleAdvanced() {
-    if (arguments.length > 0){
-      for(var i=0; i < arguments.length; i++)
-        {
-            let element = document.getElementById(arguments[i]);
-            let hidden = element.getAttribute("hidden");
-           
-            if (hidden) {
-               element.removeAttribute("hidden");
-            } else {
-               element.setAttribute("hidden", "hidden");
-            }
-        }
-    } 
-  }
