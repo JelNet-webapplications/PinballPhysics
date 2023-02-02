@@ -97,7 +97,7 @@ function setup() {
 
   //ray trace stuff
   rayCount = select('#rays');
-  rayOutput = select('#rayOut');
+  rayOutput = select('#raysLabel');
   rayOutput.innerHTML = rayCount.value;
   rayCount.input(sliderCount);
   console.log(rayCount, rayOutput);
@@ -214,12 +214,58 @@ function UpdatePinballs() {
     );
   }
 }
-
+var doMagnet = false;
+function toggleDoMagnet(){
+  doMagnet = doMagnet == false;
+  if(doMagnet){
+    document.querySelector("#magnet").style.filter = "brightness(1)";
+    document.querySelector("#magStrengthLabel").style.display = "flex";
+    document.querySelector("#magStrength").style.display = "inline-block";
+    document.querySelector("#submitMagnet").style.display = "inline-block";
+  } else {
+    document.querySelector("#magnet").style.filter = null;
+    document.querySelector("#magStrengthLabel").style.display = null;
+    document.querySelector("#magStrength").style.display = null;
+    document.querySelector("#submitMagnet").style.display = null;
+  }
+}
+var doGravity = false;
+function toggleDoGravity(){
+  doGravity = doGravity == false;
+  if(doGravity){
+    document.querySelector("#gravity").style.filter = "brightness(1)";
+    document.querySelector("#gravityValLabel").style.display = "flex";
+    document.querySelector("#gravityVal").style.display = "inline-block";
+    document.querySelector("#submitGravity").style.display = "inline-block";
+  } else {
+    document.querySelector("#gravity").style.filter = null;
+    document.querySelector("#gravityValLabel").style.display = null;
+    document.querySelector("#gravityVal").style.display = null;
+    document.querySelector("#submitGravity").style.display = null;
+  }
+}
+var doLightRays = false,
+  raysFormerValue = 0;
+function toggleDoLightRays(){
+  doLightRays = doLightRays == false;
+  if(doLightRays){
+    document.querySelector("#lightrays").style.filter = "brightness(1)";
+    document.querySelector("#raysLabel").style.display = "flex";
+    document.querySelector("#rays").style.display = "inline-block";
+    particle.new(raysFormerValue);
+  } else {
+    document.querySelector("#lightrays").style.filter = null;
+    document.querySelector("#raysLabel").style.display = null;
+    document.querySelector("#rays").style.display = null;
+    raysFormerValue = document.querySelector("#rays").value;
+    particle.new(0);
+  }
+}
 function UpdateMagnet() {
   magnetStrength = magnetStr.value();
   //console.log(magnetStrength);
 
-  if (magnet.elt.checked) {
+  if (doMagnet) {
       attractor1.remove();
       attractor1.add(magnetStrength);
       cyclePinballs();
@@ -229,7 +275,7 @@ function UpdateMagnet() {
 function UpdateGravity() {
   gravityValue = gravityVal.value();
   console.log(gravityValue);
-  if (gravity.elt.checked) {
+  if (doGravity){
     engine.gravity.scale = gravityValue*0.001;
   }
 }
@@ -285,21 +331,21 @@ function draw() {
 
   });
 
-  if (magnet.elt.checked) {
+  if (doMagnet) {
     if (attractor1.magnet == 0) {
       attractor1.add(magnetStrength);
       //console.log(magnetStrength);
       cyclePinballs();
     }
-  } else if (!magnet.elt.checked) {
+  } else if (!doMagnet) {
     if (attractor1.magnet == 1) {
       attractor1.remove();
     }
   }
   // //gravity stuff
-  if (gravity.elt.checked) {
+  if (doGravity) {
        engine.gravity.scale = gravityValue*0.001;
-    } else if (!gravity.elt.checked) {
+    } else if (!doGravity) {
        engine.gravity.scale = 0;
     }
 }
@@ -307,10 +353,11 @@ function draw() {
 
 
 function sliderCount() {
-  rayOutput.html(rayCount.elt.value); //= rayCount.elt.value;
-  // particle.rays = [];
-  particle.new(rayCount.elt.value);
-  //console.log(rayOutput, rayCount);
+    rayOutput.html("Amount: "+rayCount.elt.value); //= rayCount.elt.value;
+    // particle.rays = [];
+    particle.new(rayCount.elt.value);
+    //console.log(rayOutput, rayCount);
+  
 }
 function cyclePinballs() {
   for (var i = 0; i < pinballs.length; i++) {

@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   canvas {
     display: block;
@@ -19,6 +19,8 @@ html, body {
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
+    margin-left: 100px;
+    display: none;
   }
   .slider:hover {
     opacity: 1; /* Fully shown on mouse-over */
@@ -26,16 +28,63 @@ html, body {
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
+    width: 10px; /* Set a specific slider handle width */
     height: 16px; /* Slider handle height */
     background: #041daa; /* blue background */
     cursor: pointer; /* Cursor on hover */
   }
   
   .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
+    width: 10px; /* Set a specific slider handle width */
     height: 16px; /* Slider handle height */
     background: #041daa; /* blue background */
     cursor: pointer; /* Cursor on hover */
   }
   
+
+.iconToggle{
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  border: .5px solid black;
+  box-shadow: 2px 2px 3px grey;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  filter: brightness(.5);
+}
+.iconToggle:hover{
+  width: 45px;
+  height: 45px;
+  margin-left: -2px;
+  margin-top: -1px;
+}
+label{
+  margin-left: 125px;
+  margin-top: -50px;
+  font-style: italic;
+  display: none;
+}
+.advancedInput{
+  margin-left: 100px;
+  margin-top: -40px;
+  width: 100px;
+  display: none;
+  margin-bottom: 17px;
+}
+.advancedInput::-webkit-slider-thumb{
+  width: 10px;
+}
+.advancedInput::-moz-range-thumb{
+  width: 10px;
+}
+.advancedSubmit{
+  display: none;
+}
+#advancedFeatures{
+  height: 140px;
+  -moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+  user-select: none;
+}

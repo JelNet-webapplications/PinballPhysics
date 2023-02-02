@@ -27,17 +27,32 @@
 
         <br>
         <button onclick="toggleAdvanced('advancedFeatures')">Advanced Features</button>
+          <p id="advancedFeatures" hidden="hidden">
+            
+            <!-- Enable magnet:     -->
+            <!-- <input type ="checkbox" id ="magnet" name ="magnet" value ="magnet"> -->
+            <!-- Magnet Strength:   -->
+            <img title="Magnet" id="magnet" class="iconToggle" onclick="toggleDoMagnet()" src="imgs\magnet.png">
+            <label id="magStrengthLabel" for="magStrength">Strength</label>
+            <input class="advancedInput slider" type ="range" id ="magStrength" min= "0" max="10" value="1">
+            <button class="advancedSubmit" id="submitMagnet">submit</button>
 
-          <p id="advancedFeatures" hidden="hidden"> 
-          Enable magnet:    <input type ="checkbox" id ="magnet" name ="magnet" value ="magnet">
-          Magnet Strength:  <input type ="number" id ="magStrength" min= "0" max="10" value="1">
-                            <button id="submitMagnet">submit</button>
-          <br> 
-          Enable gravity:   <input type ="checkbox" id ="gravity" name ="gravity" value ="gravity" checked>
-          Gravity:          <input type ="number" id ="gravityVal" min= "0" max="10" value="1">
-                            <button id="submitGravity">submit</button>
-          <br> 
-          Light Rays:       <span id="rayOut">0</span> <input type="range" min="0" max="720" value="0" class="slider" id="rays">
+            <br> 
+            
+            <img title="Gravity" id="gravity" class="iconToggle" onclick="toggleDoGravity()" src="imgs/gravity-coloured.png">
+            <label id="gravityValLabel" for="gravityVal">Strength</label>
+            <input class="advancedInput slider" type ="range" id ="gravityVal" min= "0" max="10" value="1">
+            <button class="advancedSubmit" id="submitGravity">submit</button>
+
+            <!-- Enable gravity:   <input type ="checkbox" id ="gravity" name ="gravity" value ="gravity" checked>
+            Gravity:          <input type ="number" id ="gravityVal" min= "0" max="10" value="1">
+                              <button id="submitGravity">submit</button> -->
+            <br> 
+
+            <img title="Light Rays" id="lightrays" class="iconToggle" onclick="toggleDoLightRays()" src="imgs/sun.png">
+            <label id="raysLabel" for="rays">Amount</label>
+            <!-- <span id="rayOut">0</span> -->
+            <input type="range" min="0" max="720" value="0" class="slider" id="rays">
           </p>
     </p>
     </body>
