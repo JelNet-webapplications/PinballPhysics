@@ -1,2 +1,2 @@
 # pinballPhysics
-Originally created by volt64bolt for Jelcraft's website.
+Originally created by volt64bolt for JelNet
